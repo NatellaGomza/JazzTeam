@@ -1,7 +1,7 @@
 let timer;
 let posX = -210;
 let posY = -210;
-let fontSize = 10;
+let scale = 1;
 let rotateLT = 345;
 let rotateLB = 115;
 let rotateBack = false;
@@ -24,13 +24,13 @@ function moveRight() {
 }
 
 function moveDown() {
-    posY += 5;
+    posY += 3;
     header2[0].style.top = posY + "px";
 }
 
 function zoomInFont() {
-    fontSize += 0.5;
-    header2[0].style.fontSize = fontSize + "px";
+    scale += 0.02;
+    header2[0].style.transform = `scale(${scale})`
 }
 
 function rotateLeftTop() {
@@ -92,20 +92,20 @@ function rotateRight() {
 function animateH1() {
     cancelAnimationFrame(timer);
 
-    if (posY < 25.5) {
+    if (posY < 42) {
         moveDown();
     }
 
-    if (posY >= 25 && fontSize < 20.6) {
+    if (posY >= 42 && scale < 2.1) {
         zoomInFont();
     }
 
-    if (posY >= 25 && fontSize >= 20 && posX <= 55) {
+    if (posY >= 42 && scale >= 2.1 && posX <= 55) {
         moveRight();
 
     }
 
-    if (posY >= 25 && fontSize >= 20 && posX <= 60) {
+    if (posY >= 42 && scale >= 2.1 && posX <= 60) {
         if (rotateLT > 300 && !rotateBack) {
             rotateLeftTop();
         }
