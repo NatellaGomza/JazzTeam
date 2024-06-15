@@ -1,77 +1,23 @@
-let animation;
+//animation
+let animate;
+
+// header properties
 let posX = -210;
 let posY = -210;
 let scale = 1;
-let rotateLT = 345;
-let rotateLB = 115;
-let rotateBack = false;
-let rotateBackLB = false;
-let rotateRT = 5;
-let rotateRB = 360;
-let rotateBackRT = false;
-let rotateBackRB = false;
-const animationStart = Date.now();
-let progress = 0;
-let animate;
+
+// pictures properties
+let rotateImg1 = 345;
+let rotateImg2 = 360;
+let rotateImg3 = 5;
+let rotateImg4 = 115;
 
 const mainHeader = document.querySelector(".main-header");
 const header = document.querySelector(".header");
-const img1 = document.getElementsByClassName("img1");
-const img2 = document.getElementsByClassName("img2");
-const img3 = document.getElementsByClassName("img3");
-const img4 = document.getElementsByClassName("img4");
-
-function rotateLeftTop() {
-    rotateLT -= 0.5;
-    if (rotateLT === 300) {
-        rotateBack = true;
-    }
-    img1[0].style.transform = `rotate(${rotateLT + "deg"})`
-}
-
-function rotateLeftTopBack() {
-    rotateLT += 0.5;
-    img1[0].style.transform = `rotate(${rotateLT + "deg"})`
-}
-
-function rotateLeftBottom() {
-    rotateLB += 0.5;
-    if (rotateLB === 160) {
-        rotateBackLB = true;
-    }
-    img4[0].style.transform = `rotate(${rotateLB + "deg"})`
-}
-
-function rotateLeftBottomBack() {
-    rotateLB -= 0.5;
-    img4[0].style.transform = `rotate(${rotateLB + "deg"})`
-}
-
-function rotateRightBottom() {
-    rotateRB -= 0.5;
-    if (rotateRB === 315) {
-        rotateBackRB = true;
-    }
-    img3[0].style.transform = `rotate(${rotateRB + "deg"})`
-}
-
-function rotateRightBottomBack() {
-    rotateRB += 0.5;
-    img3[0].style.transform = `rotate(${rotateRB + "deg"})`
-}
-
-function rotateRightTop() {
-    rotateRT += 0.5;
-    if (rotateRT === 50) {
-        rotateBackRT = true;
-    }
-    img2[0].style.transform = `rotate(${rotateRT + "deg"})`
-}
-
-function rotateRightTopBack() {
-    rotateRT -= 0.5;
-    img2[0].style.transform = `rotate(${rotateRT + "deg"})`
-}
+const img1 = document.querySelector(".img1");
+const img2 = document.querySelector(".img2");
+const img3 = document.querySelector(".img3");
+const img4 = document.querySelector(".img4");
 
 function animateHeader() {
     if (posY < 42) {
@@ -93,53 +39,51 @@ function animateMainHeader() {
 }
 
 function rotatePicturesOutside() {
-    if (rotateLT > 300 && !rotateBack) {
-        rotateLeftTop();
-    }
+    rotateImg1 -= 0.5;
+    img1.style.transform = `rotateZ(${rotateImg1 + "deg"})`;
 
-    if (rotateLB < 160 && !rotateBackLB) {
-        rotateLeftBottom();
-    }
+    rotateImg2 += 0.5;
+    img2.style.transform = `rotateZ(${rotateImg2 + "deg"})`;
 
-    if (rotateRT < 50 && !rotateBackRT) {
-        rotateRightTop();
-    }
+    rotateImg3 -= 0.5;
+    img3.style.transform = `rotateZ(${rotateImg3 + "deg"})`;
 
-    if (rotateBackRB && rotateRB < 360) {
-        rotateRightBottomBack();
-    }
+    rotateImg4 += 0.5;
+    img4.style.transform = `rotateZ(${rotateImg4 + "deg"})`;
 }
 
-function rotatePicturesBack() {    
-    if (rotateBack && rotateLT < 345) {
-        rotateLeftTopBack();
-    }
+function rotatePicturesBack() {
+    rotateImg1 += 0.5;
+    img1.style.transform = `rotateZ(${rotateImg1 + "deg"})`;
 
-    if (rotateBackLB && rotateLB > 115) {
-        rotateLeftBottomBack();
-    }
+    rotateImg2 -= 0.5;
+    img2.style.transform = `rotateZ(${rotateImg2 + "deg"})`;
 
-    if (rotateBackRT && rotateRT > 5) {
-        rotateRightTopBack();
-    }
+    rotateImg3 += 0.5;
+    img3.style.transform = `rotateZ(${rotateImg3 + "deg"})`
 
-    if (rotateRB > 315 && !rotateBackRB) {
-        rotateRightBottom();
-    }
+    rotateImg4 -= 0.5;
+    img4.style.transform = `rotateZ(${rotateImg4 + "deg"})`;
 }
 
 function animateBillBoard(timestamp) {
-    cancelAnimationFrame(animation);
+    cancelAnimationFrame(animateBillBoard);
 
     animateHeader();
 
     if (timestamp > 1000) {
         animateMainHeader();
+    }
+
+    if (timestamp > 1000 && timestamp < 1500) {
         rotatePicturesOutside();
+    }
+
+    if (timestamp > 1500 && timestamp < 2000) {
         rotatePicturesBack();
     }
 
-    if (timestamp < 2000) {
+    if (timestamp < 2200) {
         requestAnimationFrame(animateBillBoard);
     } else {
         cancelAnimationFrame(animateBillBoard);

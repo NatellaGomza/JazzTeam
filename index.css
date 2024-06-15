@@ -56,7 +56,7 @@ h3 {
     position: absolute;
     top: 142px;
     left: 125px;
-    transform: rotateZ(5deg);
+    transform: rotateZ(360deg);
     z-index: 2;
 }
 
